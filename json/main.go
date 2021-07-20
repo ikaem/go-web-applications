@@ -58,5 +58,29 @@ func main() {
 	mySlice = append(mySlice, m2)
 
 	newJson, err := json.MarshalIndent(mySlice, "", "  ")
+
+	if err != nil {
+		log.Println("error marshaling JSON")
+	}
 	log.Println(newJson)
+
+	log.Println(string(newJson))
+
+	/*
+			2021/07/20 10:52:02 [
+		  {
+		    "first_name": "Wally",
+		    "last_name": "West",
+		    "hair_color": "Red",
+		    "has_dog": false
+		  },
+		  {
+		    "first_name": "Toro",
+		    "last_name": "We",
+		    "hair_color": "Red",
+		    "has_dog": false
+		  }
+		]
+
+	*/
 }
