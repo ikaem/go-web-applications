@@ -45,8 +45,6 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	remoteIp := m.App.Session.GetString(r.Context(), "remote_ip")
 
-	m.App.Session.
-
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Hello again"
 	stringMap["remote_ip"] = remoteIp
