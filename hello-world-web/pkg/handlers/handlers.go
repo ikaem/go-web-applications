@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/ikaem/hello-world-web/pkg/config"
@@ -30,6 +31,10 @@ func NewHandlers(r *Repository) {
 
 // Home is the about home handler
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
+	remoteIp := r.RemoteAddr
+	fmt.Println(remoteIp)
+
+	m.App.Session.Put(r.Context(), "remote_ip", remoteIp)
 
 	// render.RenderTemplate(w, "home.page.html")
 	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
@@ -38,9 +43,17 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 
 // About is the about page handler
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
+	remoteIp := m.App.Session.GetString(r.Context(), "remote_ip")
+
+	m.App.Session.
 
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Hello again"
+	stringMap["remote_ip"] = remoteIp
+
+	fmt.Print(stringMap)
+
+	// m.App.Session.
 
 	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
 		StringMap: stringMap,
